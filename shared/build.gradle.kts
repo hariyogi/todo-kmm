@@ -2,6 +2,15 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.sqldelight)
+}
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName.set("id.harlabs.delight.gen")
+        }
+    }
 }
 
 kotlin {
@@ -17,7 +26,13 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation(libs.koin.core)
+        }
+        androidMain.dependencies {
+            implementation(libs.sqldelight.android)
+        }
+        jvmMain.dependencies {
+            implementation(libs.sqldelight.sqlite)
         }
     }
 }

@@ -1,0 +1,18 @@
+CREATE TABLE todo (
+    id text NOT NULL PRIMARY KEY,
+    summary text NOT NULL,
+    description text NOT NULL,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    checked INTEGER NOT NULL DEFAULT 0
+);
+
+findAll:
+SELECT * FROM todo;
+
+insert:
+INSERT INTO todo(id, summary, description, created_at, updated_at, checked)
+VALUES (?, ?, ?, ?, ?, ?);
+
+delete:
+DELETE FROM todo WHERE id = ?;
