@@ -23,6 +23,7 @@ koin-compose = "1.1.2"
 hikari-cp = "5.1.0"
 sqllite-jdbc = "3.45.0.0"
 jdbi = "3.43.0"
+coroutine = "1.8.0-RC2"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -56,6 +57,8 @@ sqlite-jdbc-driver = { module = "org.xerial:sqlite-jdbc", version.ref = "sqllite
 # JDBI (Dekstop Only)
 jdbi-core = { module = "org.jdbi:jdbi3-core", version.ref = "jdbi" }
 jdbi-kotlin = { module = "org.jdbi:jdbi3-kotlin", version.ref = "jdbi" }
+# Coroutine
+kotlin-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutine"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

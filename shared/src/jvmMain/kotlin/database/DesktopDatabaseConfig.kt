@@ -3,7 +3,9 @@ package database
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jdbi.v3.core.Jdbi
+import org.jdbi.v3.core.async.JdbiExecutor
 import org.jdbi.v3.core.kotlin.useHandleUnchecked
+import java.util.concurrent.Executors
 
 class DesktopDatabaseConfig {
 
@@ -11,12 +13,16 @@ class DesktopDatabaseConfig {
         const val DATABASE_NAME = "todo.db"
         const val DATABASE_PATH = "."
         const val POOL_NAME = "TodoPool"
+        const val MAXIMUM_POOL_SIZE = 50
     }
 
     val jdbi: Jdbi
+    val jdbiExecutor: JdbiExecutor
 
     init {
         jdbi = buildJdbi()
+        val executor = Executors.newFixedThreadPool(MAXIMUM_POOL_SIZE)
+        jdbiExecutor = JdbiExecutor.create(jdbi, executor)
         initTable()
     }
 
@@ -49,7 +55,7 @@ class DesktopDatabaseConfig {
         config.connectionTestQuery = "SELECT 1"
         config.maxLifetime = 60000
         config.idleTimeout = 45000
-        config.maximumPoolSize = 50
+        config.maximumPoolSize = MAXIMUM_POOL_SIZE
         return HikariDataSource(config)
     }
 }

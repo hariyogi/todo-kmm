@@ -28,6 +28,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.koin.core)
+            implementation(libs.kotlin.coroutine)
         }
         androidMain.dependencies {
             implementation(libs.sqldelight.android)

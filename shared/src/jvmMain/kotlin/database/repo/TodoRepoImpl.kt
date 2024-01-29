@@ -1,24 +1,30 @@
 package database.repo
 
+import database.DesktopDatabaseConfig
 import database.dto.TodoDto
 import database.mapper.TodoDtoMapper
-import org.jdbi.v3.core.Jdbi
-import org.jdbi.v3.core.kotlin.useHandleUnchecked
-import org.jdbi.v3.core.kotlin.withHandleUnchecked
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.future.asDeferred
 import utils.generateUUID
 import utils.toDbColumn
 import java.time.LocalDateTime
 
-class TodoRepoImpl(private val jdbi: Jdbi): TodoRepo {
-    override fun create(summary: String, description: String, checked: Boolean): String {
+class TodoRepoImpl(private val db: DesktopDatabaseConfig) : TodoRepo {
+    override suspend fun create(
+        summary: String,
+        description: String,
+        checked: Boolean
+    ): Deferred<String> {
         val id = generateUUID()
         val now = LocalDateTime.now().toString()
 
-        jdbi.useHandleUnchecked { handle ->
-            handle.createUpdate("""
+        return db.jdbiExecutor.withHandle<String, RuntimeException> { handle ->
+            handle.createUpdate(
+                """
                 INSERT INTO todo(id, summary, description, created_at, updated_at, checked)
                 VALUES(:id, :summary, :description, :createdAt, :updatedAt, :checked)
-            """.trimIndent())
+            """.trimIndent()
+            )
                 .bind("id", id)
                 .bind("summary", summary)
                 .bind("description", description)
@@ -26,16 +32,26 @@ class TodoRepoImpl(private val jdbi: Jdbi): TodoRepo {
                 .bind("updatedAt", now)
                 .bind("checked", checked.toDbColumn())
                 .execute()
-        }
 
-        return id
+            id
+        }
+            .asDeferred()
     }
 
-    override fun findAll(): List<TodoDto> {
-        return jdbi.withHandleUnchecked {handle ->
+    override suspend fun findAll(): Deferred<List<TodoDto>> {
+        return db.jdbiExecutor.withHandle<List<TodoDto>, RuntimeException> { handle ->
             handle.select("SELECT * FROM todo")
                 .map(TodoDtoMapper())
                 .list()
-        }
+        }.asDeferred()
     }
+
+    override suspend fun delete(id: String): Deferred<Int> {
+        return db.jdbiExecutor.withHandle<Int, IllegalArgumentException> { handle ->
+            handle.createUpdate("DELETE FROM todo WHERE id = :id")
+                .bind("id", id)
+                .execute()
+        }.asDeferred()
+    }
+
 }
