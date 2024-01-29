@@ -4,10 +4,10 @@ import android.content.Context
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import id.harlabs.delight.gen.Database
 
-class AndroidDatabaseImpl(private val context: Context): DatabaseFactory {
+class AndroidDatabaseImpl(private val context: Context) {
 
-    override fun createDatabase(): Database {
-        val sqlDriver = AndroidSqliteDriver(Database.Schema, context, "todo")
+    fun createDatabase(): Database {
+        val sqlDriver = AndroidSqliteDriver(Database.Schema, context, "harlabs_todo")
         return Database(sqlDriver)
     }
 }

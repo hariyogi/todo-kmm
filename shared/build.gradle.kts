@@ -9,6 +9,7 @@ sqldelight {
     databases {
         create("Database") {
             packageName.set("id.harlabs.delight.gen")
+            schemaOutputDirectory.set(File("src/main/sqldelight/code/database"))
         }
     }
 }
@@ -33,6 +34,10 @@ kotlin {
         }
         jvmMain.dependencies {
             implementation(libs.sqldelight.sqlite)
+            implementation(libs.hikaricp)
+            implementation(libs.sqlite.jdbc.driver)
+            implementation(libs.jdbi.core)
+            implementation(libs.jdbi.kotlin)
         }
     }
 }
