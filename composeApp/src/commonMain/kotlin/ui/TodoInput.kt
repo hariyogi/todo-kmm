@@ -3,6 +3,7 @@ package ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -44,7 +45,7 @@ fun TodoInput(
             Text("Saved todo $saveNote")
             Spacer(Modifier.height(16.dp))
         }
-        ElevatedButton(onClick = {
+        Button(onClick = {
             saveNote = summaryValue
             val result = TodoInputResult(summaryValue, descValue)
             onClick(result)

@@ -2,8 +2,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -17,46 +26,18 @@ import database.dto.TodoDto
 import database.repo.TodoRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import moe.tlaster.precompose.PreComposeApp
 import org.koin.compose.koinInject
+import ui.AppNavigation
+import ui.MainScreen
 import ui.TodoInput
 import ui.TodoList
 
 @Composable
 fun App() {
-    val sqlDelightTodoRepo = koinInject<TodoRepo>()
-    val composeScope = rememberCoroutineScope()
-    var todoList by remember { mutableStateOf(listOf<TodoDto>()) }
-
-    if (todoList.isEmpty()) {
-        LaunchedEffect(todoList) {
-            composeScope.launch(Dispatchers.IO) {
-                val result = sqlDelightTodoRepo.findAll()
-                todoList = result.await()
-            }
-        }
-    }
-
-    MaterialTheme {
-        Column {
-            TodoInput(onClick = {
-                composeScope.launch (Dispatchers.IO) {
-                    sqlDelightTodoRepo.create(
-                        it.summary,
-                        it.description,
-                        false
-                    ).await()
-                    val list = sqlDelightTodoRepo.findAll()
-                    todoList = list.await()
-                }
-            })
-            Spacer(Modifier.height(16.dp))
-            Text("Todo List")
-            Spacer(Modifier.height(8.dp))
-            TodoList(
-                todoList,
-                Modifier
-                    .fillMaxHeight()
-            )
+    PreComposeApp {
+        MaterialTheme {
+            AppNavigation()
         }
     }
 }

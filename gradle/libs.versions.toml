@@ -24,6 +24,7 @@ hikari-cp = "5.1.0"
 sqllite-jdbc = "3.45.0.0"
 jdbi = "3.43.0"
 coroutine = "1.8.0-RC2"
+precompose = "1.5.10"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -52,13 +53,17 @@ sqldelight-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
 # Hikari Cp (Dekstop Only)
-hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikari-cp"}
-sqlite-jdbc-driver = { module = "org.xerial:sqlite-jdbc", version.ref = "sqllite-jdbc"}
+hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikari-cp" }
+sqlite-jdbc-driver = { module = "org.xerial:sqlite-jdbc", version.ref = "sqllite-jdbc" }
 # JDBI (Dekstop Only)
 jdbi-core = { module = "org.jdbi:jdbi3-core", version.ref = "jdbi" }
 jdbi-kotlin = { module = "org.jdbi:jdbi3-kotlin", version.ref = "jdbi" }
 # Coroutine
-kotlin-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutine"}
+kotlin-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutine" }
+# Precompose
+precompose-core = { module = "moe.tlaster:precompose", version.ref = "precompose" }
+precompose-viewmodel = { module = "moe.tlaster:precompose-viewmodel", version.ref = "precompose" }
+precompose-koin = { module = "moe.tlaster:precompose-koin", version.ref = "precompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

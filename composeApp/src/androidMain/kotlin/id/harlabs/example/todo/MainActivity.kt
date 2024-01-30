@@ -11,6 +11,7 @@ import database.modules.repoModules
 import id.harlabs.delight.gen.Database
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import viewmodel.viewModelModules
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,8 @@ class MainActivity : ComponentActivity() {
         startKoin {
             modules(
                 databaseModule,
-                repoModules
+                repoModules,
+                viewModelModules
             )
         }
 

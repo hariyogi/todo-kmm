@@ -5,13 +5,15 @@ import androidx.compose.ui.window.application
 import modules.databaseConfModule
 import modules.repoModules
 import org.koin.compose.KoinApplication
+import viewmodel.viewModelModules
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, title = "Todo list") {
         KoinApplication({
             modules(
                 databaseConfModule,
-                repoModules
+                repoModules,
+                viewModelModules
             )
         }) {
             App()
