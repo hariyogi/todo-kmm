@@ -4,8 +4,8 @@ import database.dto.TodoDto
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import utils.fromDbToBool
+import utils.toLocalDateTime
 import java.sql.ResultSet
-import java.time.LocalDateTime
 
 class TodoDtoMapper: RowMapper<TodoDto> {
 
@@ -14,8 +14,11 @@ class TodoDtoMapper: RowMapper<TodoDto> {
             rs.getString("id"),
             rs.getString("summary"),
             rs.getString("description"),
-            LocalDateTime.parse(rs.getString("created_at")),
-            LocalDateTime.parse(rs.getString("updated_at")),
+            rs.getString("start_at").toLocalDateTime(),
+            rs.getString("end_at").toLocalDateTime(),
+            rs.getString("cat_id"),
+            rs.getString("created_at").toLocalDateTime()!!,
+            rs.getString("updated_at").toLocalDateTime()!!,
             rs.getLong("checked").fromDbToBool()
         )
     }

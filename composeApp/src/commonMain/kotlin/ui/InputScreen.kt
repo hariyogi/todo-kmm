@@ -63,6 +63,8 @@ fun InputScreen(
                         todoRepo.create(
                             summary = it.summary,
                             description = it.description,
+                            startAt = it.startAt,
+                            endAt = it.endAt,
                             checked = false
                         ).await()
                         todoViewModel.cleanTodo()

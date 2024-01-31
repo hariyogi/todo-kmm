@@ -2,7 +2,6 @@ package ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -22,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import database.dto.TodoDto
+import utils.viewMode
+import java.time.LocalDateTime
 
 
 @Composable
@@ -64,12 +65,33 @@ fun TodoListItem(
                     text = todoDto.description,
                     style = MaterialTheme.typography.bodyMedium
                 )
+                Spacer(Modifier.height(8.dp))
+                TodoItemDateRange(todoDto.startAt, todoDto.endAt)
             }
 
             IconButton(onClick = {
                 onDelete(todoDto)
             }) {
                 Icon(Icons.Rounded.Delete, null)
+            }
+        }
+    }
+}
+
+@Composable
+fun TodoItemDateRange(start: LocalDateTime?, end: LocalDateTime?, modifier: Modifier = Modifier) {
+    Row(modifier = modifier) {
+        if (start != null || end != null) {
+            if (start != null) {
+                Text(text = "Start ${start.viewMode()}")
+            }
+
+            if (start != null && end != null) {
+                Text(text = " - ")
+            }
+
+            if (end != null) {
+                Text(text = "End ${end.viewMode()}")
             }
         }
     }

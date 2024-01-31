@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.async.JdbiExecutor
-import org.jdbi.v3.core.kotlin.useHandleUnchecked
 import java.util.concurrent.Executors
 
 class DesktopDatabaseConfig {
@@ -23,24 +22,9 @@ class DesktopDatabaseConfig {
         jdbi = buildJdbi()
         val executor = Executors.newFixedThreadPool(MAXIMUM_POOL_SIZE)
         jdbiExecutor = JdbiExecutor.create(jdbi, executor)
-        initTable()
+        Migration(jdbi).migration()
     }
 
-    private fun initTable() {
-        jdbi.useHandleUnchecked { handle ->
-            handle.createUpdate("""
-                CREATE TABLE IF NOT EXISTS todo(
-                    id text NOT NULL PRIMARY KEY,
-                    summary text NOT NULL,
-                    description text NOT NULL,
-                    created_at TEXT NOT NULL,
-                    updated_at TEXT NOT NULL,
-                    checked INTEGER NOT NULL DEFAULT 0
-                )
-            """.trimIndent())
-                .execute()
-        }
-    }
 
     private fun buildJdbi(): Jdbi {
         val dataSource = buildDatasource()

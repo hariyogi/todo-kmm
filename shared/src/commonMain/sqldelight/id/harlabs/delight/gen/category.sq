@@ -1,0 +1,18 @@
+CREATE TABLE category (
+    id text NOT NULL PRIMARY KEY,
+    cat_name TEXT NOT NULL,
+    cat_desc TEXT NOT NULL,
+    cat_color TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+insert:
+INSERT INTO category(id, cat_name, cat_desc, cat_color, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?);
+
+findAll:
+SELECT * FROM category;
+
+deleteById:
+DELETE FROM category WHERE id = ?;

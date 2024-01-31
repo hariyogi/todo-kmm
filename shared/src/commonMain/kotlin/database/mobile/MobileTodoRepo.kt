@@ -19,7 +19,10 @@ class MobileTodoRepo(database: Database) : TodoRepo {
     override suspend fun create(
         summary: String,
         description: String,
-        checked: Boolean
+        checked: Boolean,
+        startAt: LocalDateTime?,
+        endAt: LocalDateTime?,
+        catId: String?
     ): Deferred<String> = coroutineScope {
         async(Dispatchers.IO) {
             val id = generateUUID()
@@ -29,7 +32,10 @@ class MobileTodoRepo(database: Database) : TodoRepo {
                 description = description,
                 created_at = LocalDateTime.now().toString(),
                 updated_at = LocalDateTime.now().toString(),
-                checked = checked.toDbColumn()
+                checked = checked.toDbColumn(),
+                start_at = startAt?.toString(),
+                end_at = endAt?.toString(),
+                cat_id = catId
             )
 
             id

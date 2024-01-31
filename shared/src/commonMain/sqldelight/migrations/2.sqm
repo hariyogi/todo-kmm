@@ -1,4 +1,4 @@
-CREATE TABLE todo (
+CREATE TABLE IF NOT EXISTS todo(
     id text NOT NULL PRIMARY KEY,
     summary text NOT NULL,
     description text NOT NULL,
@@ -10,13 +10,3 @@ CREATE TABLE todo (
     cat_id TEXT,
     FOREIGN KEY (cat_id) REFERENCES category (id)
 );
-
-findAll:
-SELECT * FROM todo;
-
-insert:
-INSERT INTO todo(id, summary, description, created_at, updated_at, checked, start_at, end_at, cat_id)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
-
-delete:
-DELETE FROM todo WHERE id = ?;

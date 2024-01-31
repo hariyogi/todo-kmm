@@ -13,7 +13,10 @@ class TodoRepoImpl(private val db: DesktopDatabaseConfig) : TodoRepo {
     override suspend fun create(
         summary: String,
         description: String,
-        checked: Boolean
+        checked: Boolean,
+        startAt: LocalDateTime?,
+        endAt: LocalDateTime?,
+        catId: String?
     ): Deferred<String> {
         val id = generateUUID()
         val now = LocalDateTime.now().toString()
@@ -21,8 +24,9 @@ class TodoRepoImpl(private val db: DesktopDatabaseConfig) : TodoRepo {
         return db.jdbiExecutor.withHandle<String, RuntimeException> { handle ->
             handle.createUpdate(
                 """
-                INSERT INTO todo(id, summary, description, created_at, updated_at, checked)
-                VALUES(:id, :summary, :description, :createdAt, :updatedAt, :checked)
+                INSERT 
+                INTO todo(id, summary, description, created_at, updated_at, checked, start_at, end_at, cat_id)
+                VALUES(:id, :summary, :description, :createdAt, :updatedAt, :checked, :startAt, :endAt, :catId)
             """.trimIndent()
             )
                 .bind("id", id)
@@ -31,6 +35,9 @@ class TodoRepoImpl(private val db: DesktopDatabaseConfig) : TodoRepo {
                 .bind("createdAt", now)
                 .bind("updatedAt", now)
                 .bind("checked", checked.toDbColumn())
+                .bind("startAt", startAt?.toString())
+                .bind("endAt", endAt?.toString())
+                .bind("catId", catId)
                 .execute()
 
             id
