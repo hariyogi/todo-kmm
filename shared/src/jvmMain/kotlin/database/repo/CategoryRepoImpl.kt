@@ -26,9 +26,11 @@ class CategoryRepoImpl(private val config: DesktopDatabaseConfig): CategoryRepo 
             """.trimIndent())
                 .bind("id", id)
                 .bind("catName", name)
+                .bind("catDesc", desc)
                 .bind("catColor", color)
                 .bind("createdAt", LocalDateTime.now().toString())
                 .bind("updatedAt", LocalDateTime.now().toString())
+                .execute()
 
             id
         }.asDeferred()
@@ -47,6 +49,16 @@ class CategoryRepoImpl(private val config: DesktopDatabaseConfig): CategoryRepo 
             handle.createUpdate("DELETE FROM category WHERE ${CategoryField.ID} = :id")
                 .bind("id", id)
                 .execute()
+        }.asDeferred()
+    }
+
+    override suspend fun findById(id: String): Deferred<CategoryDto?> {
+        return config.jdbiExecutor.withHandle<CategoryDto, RuntimeException> { handle ->
+            handle.select("SELECT * FROM category WHERE ${CategoryField.ID} = :id")
+                .bind("id", id)
+                .map(CategoryDtoMapper())
+                .findFirst()
+                .orElse(null)
         }.asDeferred()
     }
 }

@@ -25,6 +25,7 @@ sqllite-jdbc = "3.45.0.0"
 jdbi = "3.43.0"
 coroutine = "1.8.0-RC2"
 precompose = "1.5.10"
+windowsize = "0.5.0-alpha03"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -64,6 +65,8 @@ kotlin-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", v
 precompose-core = { module = "moe.tlaster:precompose", version.ref = "precompose" }
 precompose-viewmodel = { module = "moe.tlaster:precompose-viewmodel", version.ref = "precompose" }
 precompose-koin = { module = "moe.tlaster:precompose-koin", version.ref = "precompose" }
+# Window Size
+material3-windowsize = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "windowsize" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

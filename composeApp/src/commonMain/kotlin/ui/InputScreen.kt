@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import moe.tlaster.precompose.koin.koinViewModel
 import moe.tlaster.precompose.navigation.Navigator
 import org.koin.compose.koinInject
+import viewmodel.CategoryBsViewModel
 import viewmodel.TodoViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,6 +30,7 @@ fun InputScreen(
     modifier: Modifier = Modifier
 ) {
 
+    val categoryBsViewModel = koinViewModel<CategoryBsViewModel>()
     val todoRepo = koinInject<TodoRepo>()
     val cScope = rememberCoroutineScope()
 
@@ -41,6 +43,7 @@ fun InputScreen(
                 title = { Text("Create Todo") },
                 navigationIcon = {
                     IconButton(onClick = {
+                        categoryBsViewModel.resetSelectedCategory()
                         navigator.goBack()
                     }) {
                         Icon(Icons.Rounded.ArrowBack, null)
@@ -65,12 +68,15 @@ fun InputScreen(
                             description = it.description,
                             startAt = it.startAt,
                             endAt = it.endAt,
-                            checked = false
+                            checked = false,
+                            catId = it.category?.id
                         ).await()
                         todoViewModel.cleanTodo()
+                        categoryBsViewModel.resetSelectedCategory()
                         navigator.goBack()
                     }
-                }
+                },
+                navigator
             )
         }
     }

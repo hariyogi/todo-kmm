@@ -28,5 +28,11 @@ fun AppNavigation() {
         ) {
             InputScreen(navigator)
         }
+
+        scene(
+            route = "/category/create"
+        ) {
+            InputCategoryScreen(navigator)
+        }
     }
 }

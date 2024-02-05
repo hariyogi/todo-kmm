@@ -1,37 +1,39 @@
 package viewmodel
 
-import database.dto.TodoDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import moe.tlaster.precompose.viewmodel.ViewModel
+import ui.NoteRange
 
-class TodoViewModel: ViewModel() {
+class TodoInputViewModel: ViewModel() {
 
-    private val _uiState = MutableStateFlow(MainScreenState())
+    private val _uiState = MutableStateFlow(TodoInputState())
     val uiState = _uiState.asStateFlow()
 
-    fun cleanTodo() {
+    fun updateSummaryValue(value: String) {
         _uiState.update {
             it.copy(
-                todoList = listOf()
+                summaryValue = value
             )
         }
     }
 
-    fun addTodo(todos: List<TodoDto>) {
+    fun updateDescriptionValue(value: String) {
         _uiState.update {
             it.copy(
-                todoList = it.todoList + todos
+                descValue = value
             )
         }
     }
 
-    fun deleteTodo(todo: TodoDto) {
+    fun updateNoteRange(noteRange: NoteRange?) {
         _uiState.update {
             it.copy(
-                todoList = it.todoList - todo
+                noteRange = noteRange
             )
         }
     }
+
+
 }

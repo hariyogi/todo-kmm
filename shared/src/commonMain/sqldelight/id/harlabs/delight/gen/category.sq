@@ -16,3 +16,6 @@ SELECT * FROM category;
 
 deleteById:
 DELETE FROM category WHERE id = ?;
+
+findById:
+SELECT * FROM category WHERE id = ?;

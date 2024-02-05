@@ -43,4 +43,12 @@ class MobileCategoryRepo(database: Database) : CategoryRepo {
             1
         }
     }
+
+    override suspend fun findById(id: String): Deferred<CategoryDto?> = coroutineScope {
+        async(Dispatchers.IO) {
+            queries.findById(id)
+                .executeAsOneOrNull()
+                ?.toDto()
+        }
+    }
 }

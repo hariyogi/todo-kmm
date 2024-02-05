@@ -12,6 +12,6 @@ interface CategoryRepo {
     ): Deferred<String>
 
     suspend fun findAll(): Deferred<List<CategoryDto>>
-
     suspend fun delete(id: String): Deferred<Int>
+    suspend fun findById(id: String): Deferred<CategoryDto?>
 }
