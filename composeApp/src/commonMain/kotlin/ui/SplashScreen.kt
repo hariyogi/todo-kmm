@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,22 +32,25 @@ fun SplashScreen(
         navigator.navigate("/main", NavOptions(launchSingleTop = true))
     }
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
-            .fillMaxSize()
-    ) {
-        Text(
-            text = "TODO APP",
-            style = MaterialTheme.typography.displayLarge,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(Modifier.height(16.dp))
-        Text(
-            text = "Because your life absolute messy",
-            style = MaterialTheme.typography.bodyLarge,
-        )
+
+
+    Scaffold {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = modifier
+                .fillMaxSize()
+        ) {
+            Text(
+                text = "TODO APP",
+                style = MaterialTheme.typography.displayLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(Modifier.height(16.dp))
+            Text(
+                text = "Because your life absolute messy",
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
     }
 }
