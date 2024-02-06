@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import database.AndroidDatabaseImpl
 import database.modules.repoModules
+import handlerModules
 import id.harlabs.delight.gen.Database
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -28,7 +29,8 @@ class MainActivity : ComponentActivity() {
             modules(
                 databaseModule,
                 repoModules,
-                viewModelModules
+                viewModelModules,
+                handlerModules
             )
         }
 

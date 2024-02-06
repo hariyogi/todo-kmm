@@ -34,5 +34,11 @@ fun AppNavigation() {
         ) {
             InputCategoryScreen(navigator)
         }
+
+        scene(
+            route = "/config"
+        ) {
+            ConfigScreen(navigator)
+        }
     }
 }

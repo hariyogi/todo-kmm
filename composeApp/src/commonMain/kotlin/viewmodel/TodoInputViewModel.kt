@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import moe.tlaster.precompose.viewmodel.ViewModel
 import ui.NoteRange
+import viewmodel.state.TodoInputState
 
 class TodoInputViewModel: ViewModel() {
 

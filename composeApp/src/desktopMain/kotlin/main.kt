@@ -13,7 +13,8 @@ fun main() = application {
             modules(
                 databaseConfModule,
                 repoModules,
-                viewModelModules
+                viewModelModules,
+                handlerModules
             )
         }) {
             App()

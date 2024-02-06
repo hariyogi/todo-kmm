@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 class Migration(private val jdbi: Jdbi) {
 
     companion object {
-        private const val LATEST_VERSION = 2
+        private const val LATEST_VERSION = 3
 
         private val latestVersion = """
             SELECT level FROM migration_ver ORDER BY level DESC LIMIT 1;
@@ -48,6 +48,13 @@ class Migration(private val jdbi: Jdbi) {
                 FOREIGN KEY (cat_id) REFERENCES category (id)
             );
         """.trimIndent()
+
+        private val version3 = """
+            CREATE TABLE config (
+                key TEXT PRIMARY KEY NOT NULL,
+                value_ TEXT NOT NULL
+            );
+        """.trimIndent()
     }
 
     fun migration() {
@@ -64,9 +71,9 @@ class Migration(private val jdbi: Jdbi) {
         } ?: 1
 
         if (version < LATEST_VERSION) {
-            val migration = listOf(version1, version2)
+            val migration = listOf(version1, version2, version3)
             jdbi.useHandleUnchecked { handle ->
-                for (i in version - 1..<migration.size) {
+                for (i in version..<migration.size) {
                     handle.createScript(migration[i]).execute()
                     handle.createUpdate("""
                         INSERT INTO migration_ver(level, created_at) 

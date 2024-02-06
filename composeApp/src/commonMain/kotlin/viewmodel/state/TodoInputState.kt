@@ -1,4 +1,4 @@
-package viewmodel
+package viewmodel.state
 
 import ui.NoteRange
 import utils.toDateTimeViewMode

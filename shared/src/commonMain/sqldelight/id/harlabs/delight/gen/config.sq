@@ -1,0 +1,20 @@
+CREATE TABLE config (
+    key TEXT PRIMARY KEY NOT NULL,
+    value TEXT NOT NULL
+);
+
+insert:
+INSERT INTO config(key, value)
+VALUES (?, ?);
+
+findAll:
+SELECT * FROM config;
+
+deleteById:
+DELETE FROM config WHERE key = ?;
+
+findById:
+SELECT * FROM config WHERE key = ?;
+
+update:
+UPDATE config SET value = ? WHERE key = ?;

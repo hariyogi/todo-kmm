@@ -6,4 +6,5 @@ val viewModelModules = module {
     single { TodoViewModel() }
     single { CategoryBsViewModel(get()) }
     single { TodoInputViewModel() }
+    single { AppConfigViewModel(get()) }
 }

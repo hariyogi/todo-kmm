@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -115,6 +116,11 @@ fun MainTopBar(
         ),
         actions = {
             IconButton(onClick = {
+                navigator.navigate("/config")
+            }) {
+                Icon(Icons.Rounded.Settings, null)
+            }
+            IconButton(onClick = {
                 navigator.navigate("/input")
             }) {
                 Icon(Icons.Rounded.Add, null)
@@ -140,6 +146,12 @@ fun MainNavigationRail(
             onClick = { navigator.navigate("/input") },
             icon = { Icon(Icons.Rounded.Add, null) },
             label = { Text("Add Todo") }
+        )
+        NavigationRailItem(
+            selected = false,
+            onClick = { navigator.navigate("/config") },
+            icon = { Icon(Icons.Rounded.Settings, null) },
+            label = { Text("Konfigurasi") }
         )
     }
 
