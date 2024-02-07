@@ -2,10 +2,13 @@
 
 package ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Settings
@@ -36,6 +39,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.koin.koinViewModel
 import moe.tlaster.precompose.navigation.Navigator
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import viewmodel.TodoViewModel
 
@@ -130,13 +135,22 @@ fun MainTopBar(
     )
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MainNavigationRail(
     navigator: Navigator,
     modifier: Modifier = Modifier
 ) {
     NavigationRail(
-        header = { Text("Todo List") },
+        header = {
+            Image(
+                painter = painterResource("logo.png"),
+                contentDescription = "Logo",
+                modifier = Modifier
+                    .height(16.dp * 5)
+                    .width(9.dp * 5)
+            )
+        },
         containerColor = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.primary,
         modifier = modifier
